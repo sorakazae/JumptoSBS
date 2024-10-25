@@ -1,0 +1,50 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.4'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.mysite'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	//서버 재시작 없이도 변동사항 즉각반영(개발환경)
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'	
+	//롬복 설치
+	compileOnly 'org.projectlombok:lombok' 
+    annotationProcessor 'org.projectlombok:lombok' 
+    //H2 데이터베이스 설치
+    runtimeOnly 'com.h2database:h2'	//JPA인 ORM을 이용해 DB 컨트롤 //왜 에러?
+    //JPA(ORM) 인터페이스 설치
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // 라이브러리 설치
+	//JUnit(테스트 빌드) 설치
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher' //테스트 실행 시에만 사용됨
+	//타임리프 설치 
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	//Spring Boot Validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	//Spring Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	//Mark-Down
+	implementation 'org.commonmark:commonmark:0.21.0'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
